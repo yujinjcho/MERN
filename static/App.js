@@ -1,26 +1,5 @@
 "use strict";
 
-var BugList = React.createClass({
-  displayName: "BugList",
-
-  render: function render() {
-    return React.createElement(
-      "div",
-      null,
-      React.createElement(
-        "h1",
-        null,
-        "Bug Tracker"
-      ),
-      React.createElement(BugFilter, null),
-      React.createElement("hr", null),
-      React.createElement(BugTable, null),
-      React.createElement("hr", null),
-      React.createElement(BugAdd, null)
-    );
-  }
-});
-
 var BugRow = React.createClass({
   displayName: "BugRow",
 
@@ -31,27 +10,27 @@ var BugRow = React.createClass({
       React.createElement(
         "td",
         null,
-        this.props.id
+        this.props.bug.id
       ),
       React.createElement(
         "td",
         null,
-        this.props.status
+        this.props.bug.status
       ),
       React.createElement(
         "td",
         null,
-        this.props.priority
+        this.props.bug.priority
       ),
       React.createElement(
         "td",
         null,
-        this.props.owner
+        this.props.bug.owner
       ),
       React.createElement(
         "td",
         null,
-        this.props.title
+        this.props.bug.title
       )
     );
   }
@@ -73,6 +52,10 @@ var BugTable = React.createClass({
   displayName: "BugTable",
 
   render: function render() {
+    var bugRows = this.props.bugs.map(function (bug) {
+      return React.createElement(BugRow, { key: bug.id, bug: bug });
+    });
+
     return React.createElement(
       "table",
       null,
@@ -112,8 +95,7 @@ var BugTable = React.createClass({
       React.createElement(
         "tbody",
         null,
-        React.createElement(BugRow, { id: 1, priority: "P1", status: "Open", owner: "Ravan", title: "App crashes on open" }),
-        React.createElement(BugRow, { id: 2, priority: "P2", status: "New", owner: "Eddie", title: "Misaligned border on panel" })
+        bugRows
       )
     );
   }
@@ -127,6 +109,29 @@ var BugAdd = React.createClass({
       "div",
       null,
       "Add"
+    );
+  }
+});
+
+var bugData = [{ id: 1, priority: "P1", status: "Open", owner: "Ravan", title: "App crashes on open" }, { id: 2, priority: "P2", status: "New", owner: "Eddie", title: "Misaligned border on panel" }];
+
+var BugList = React.createClass({
+  displayName: "BugList",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "h1",
+        null,
+        "Bug Tracker"
+      ),
+      React.createElement(BugFilter, null),
+      React.createElement("hr", null),
+      React.createElement(BugTable, { bugs: bugData }),
+      React.createElement("hr", null),
+      React.createElement(BugAdd, null)
     );
   }
 });
