@@ -64,16 +64,27 @@ var BugList = React.createClass({
     return {bugs: bugData};
   },
   render: function () {
+    console.log('Component rendered')
     return (
       <div>
         <h1>Bug Tracker</h1>
         <BugFilter />
         <hr />
         <BugTable bugs={this.state.bugs}/>
+        <button onClick={this.testNewBug}>Test</button>
         <hr />
         <BugAdd />
       </div>
     )
+  },
+  testNewBug: function() {
+    var nextId = this.state.bugs.length + 1;
+    this.addBug({id: nextId, priority:"P2", status:"New", owner:"Yujin", title:"crash"})
+  },
+  addBug: function(bug) {
+    var bugsModified = this.state.bugs.slice();
+    bugsModified.push(bug);
+    this.setState({bugs: bugsModified});
   }
 });
 

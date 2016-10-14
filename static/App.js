@@ -122,6 +122,7 @@ var BugList = React.createClass({
     return { bugs: bugData };
   },
   render: function render() {
+    console.log('Component rendered');
     return React.createElement(
       "div",
       null,
@@ -133,9 +134,23 @@ var BugList = React.createClass({
       React.createElement(BugFilter, null),
       React.createElement("hr", null),
       React.createElement(BugTable, { bugs: this.state.bugs }),
+      React.createElement(
+        "button",
+        { onClick: this.testNewBug },
+        "Test"
+      ),
       React.createElement("hr", null),
       React.createElement(BugAdd, null)
     );
+  },
+  testNewBug: function testNewBug() {
+    var nextId = this.state.bugs.length + 1;
+    this.addBug({ id: nextId, priority: "P2", status: "New", owner: "Yujin", title: "crash" });
+  },
+  addBug: function addBug(bug) {
+    var bugsModified = this.state.bugs.slice();
+    bugsModified.push(bug);
+    this.setState({ bugs: bugsModified });
   }
 });
 
