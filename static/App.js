@@ -118,6 +118,9 @@ var bugData = [{ id: 1, priority: "P1", status: "Open", owner: "Ravan", title: "
 var BugList = React.createClass({
   displayName: "BugList",
 
+  getInitialState: function getInitialState() {
+    return { bugs: bugData };
+  },
   render: function render() {
     return React.createElement(
       "div",
@@ -129,7 +132,7 @@ var BugList = React.createClass({
       ),
       React.createElement(BugFilter, null),
       React.createElement("hr", null),
-      React.createElement(BugTable, { bugs: bugData }),
+      React.createElement(BugTable, { bugs: this.state.bugs }),
       React.createElement("hr", null),
       React.createElement(BugAdd, null)
     );
