@@ -159,10 +159,18 @@ var BugList = React.createClass({
     );
   },
   addBug: function addBug(bug) {
-    var bugsModified = this.state.bugs.slice();
-    bug.id = this.state.bugs.length + 1;
-    bugsModified.push(bug);
-    this.setState({ bugs: bugsModified });
+    $.ajax({
+      type: 'POST', url: '/api/bugs', contentType: 'application/json',
+      data: JSON.stringify(bug),
+      success: (function (data) {
+        var bug = data;
+        var bugsModified = this.state.bugs.concat(bug);
+        this.setState({ bugs: bugsModified });
+      }).bind(this),
+      error: function error(xhr, status, err) {
+        console.log("Error adding bug:", err);
+      }
+    });
   }
 });
 
