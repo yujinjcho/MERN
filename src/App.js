@@ -3,7 +3,7 @@ var BugRow = React.createClass({
   render: function() {
     return (
       <tr>
-        <td>{this.props.bug.id}</td>
+        <td>{this.props.bug._id}</td>
         <td>{this.props.bug.status}</td>
         <td>{this.props.bug.priority}</td>
         <td>{this.props.bug.owner}</td>
@@ -24,7 +24,7 @@ var BugFilter = React.createClass({
 var BugTable = React.createClass({
   render: function () {
     var bugRows = this.props.bugs.map(function(bug){
-      return <BugRow key={bug.id} bug={bug} />
+      return <BugRow key={bug._id} bug={bug} />
     });
 
     return (
