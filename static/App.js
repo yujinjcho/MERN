@@ -1,34 +1,38 @@
-"use strict";
+'use strict';
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+var $ = require('jquery');
 
 var BugRow = React.createClass({
-  displayName: "BugRow",
+  displayName: 'BugRow',
 
   render: function render() {
     return React.createElement(
-      "tr",
+      'tr',
       null,
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.bug._id
       ),
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.bug.status
       ),
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.bug.priority
       ),
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.bug.owner
       ),
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.bug.title
       )
@@ -37,19 +41,19 @@ var BugRow = React.createClass({
 });
 
 var BugFilter = React.createClass({
-  displayName: "BugFilter",
+  displayName: 'BugFilter',
 
   render: function render() {
     return React.createElement(
-      "div",
+      'div',
       null,
-      "Filter "
+      'Filter '
     );
   }
 });
 
 var BugTable = React.createClass({
-  displayName: "BugTable",
+  displayName: 'BugTable',
 
   render: function render() {
     var bugRows = this.props.bugs.map(function (bug) {
@@ -57,43 +61,43 @@ var BugTable = React.createClass({
     });
 
     return React.createElement(
-      "table",
+      'table',
       null,
       React.createElement(
-        "thead",
+        'thead',
         null,
         React.createElement(
-          "tr",
+          'tr',
           null,
           React.createElement(
-            "th",
+            'th',
             null,
-            "Id"
+            'Id'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "Status"
+            'Status'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "Priority"
+            'Priority'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "Owner"
+            'Owner'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "Title"
+            'Title'
           )
         )
       ),
       React.createElement(
-        "tbody",
+        'tbody',
         null,
         bugRows
       )
@@ -102,21 +106,21 @@ var BugTable = React.createClass({
 });
 
 var BugAdd = React.createClass({
-  displayName: "BugAdd",
+  displayName: 'BugAdd',
 
   render: function render() {
     return React.createElement(
-      "div",
+      'div',
       null,
       React.createElement(
-        "form",
-        { name: "bugAdd" },
-        React.createElement("input", { type: "text", name: "owner", placeholder: "Owner" }),
-        React.createElement("input", { type: "text", name: "title", placeholder: "Title" }),
+        'form',
+        { name: 'bugAdd' },
+        React.createElement('input', { type: 'text', name: 'owner', placeholder: 'Owner' }),
+        React.createElement('input', { type: 'text', name: 'title', placeholder: 'Title' }),
         React.createElement(
-          "button",
+          'button',
           { onClick: this.handleSubmit },
-          "Add Bug"
+          'Add Bug'
         )
       )
     );
@@ -131,7 +135,7 @@ var BugAdd = React.createClass({
 });
 
 var BugList = React.createClass({
-  displayName: "BugList",
+  displayName: 'BugList',
 
   componentDidMount: function componentDidMount() {
     $.ajax('/api/bugs').done((function (data) {
@@ -144,17 +148,17 @@ var BugList = React.createClass({
   render: function render() {
     console.log('Component rendered');
     return React.createElement(
-      "div",
+      'div',
       null,
       React.createElement(
-        "h1",
+        'h1',
         null,
-        "Bug Tracker"
+        'Bug Tracker'
       ),
       React.createElement(BugFilter, null),
-      React.createElement("hr", null),
+      React.createElement('hr', null),
       React.createElement(BugTable, { bugs: this.state.bugs }),
-      React.createElement("hr", null),
+      React.createElement('hr', null),
       React.createElement(BugAdd, { addBug: this.addBug })
     );
   },
