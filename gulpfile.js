@@ -14,7 +14,8 @@ gulp.task('bundle', function() {
 gulp.task('watch', function(){
 
   var b = browserify({
-    entries: ['src/App.js'],
+    entries: ['src/App.js', 'src/BugList.js', 'src/BugFilter.js', 'src/BugAdd.js'],
+    //entries: ['src/App.js'],
     cache: {}, packageCache: {},
     plugin: ['watchify']
   });
