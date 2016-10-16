@@ -24,12 +24,18 @@ gulp.task('watch', function(){
   function makeBundle() {
     b.transform('babelify', {presets: 'react'})
       .bundle()
+      .on('error', function(err){
+        console.error(err.message);
+        console.error(err.codeFrame);
+      })
       .pipe(source('bundle.js'))
       .pipe(gulp.dest('static/'));
+    console.log("Bundle updated, success");
   }
 
   makeBundle();
 
   return b;
-
 });
+
+gulp.task('default', ['watch'])

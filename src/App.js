@@ -84,7 +84,7 @@ var BugList = React.createClass({
     console.log('Component rendered')
     return (
       <div>
-        <h1>Bug Tracker</h1>
+        <h1>Bug Tracker!</h1>
         <BugFilter />
         <hr />
         <BugTable bugs={this.state.bugs}/>

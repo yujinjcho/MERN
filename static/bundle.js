@@ -31038,7 +31038,7 @@ var BugList = React.createClass({
   },
   render: function () {
     console.log('Component rendered');
-    return React.createElement('div', null, React.createElement('h1', null, 'Bug Tracker'), React.createElement(BugFilter, null), React.createElement('hr', null), React.createElement(BugTable, { bugs: this.state.bugs }), React.createElement('hr', null), React.createElement(BugAdd, { addBug: this.addBug }));
+    return React.createElement('div', null, React.createElement('h1', null, 'Bug Tracker!'), React.createElement(BugFilter, null), React.createElement('hr', null), React.createElement(BugTable, { bugs: this.state.bugs }), React.createElement('hr', null), React.createElement(BugAdd, { addBug: this.addBug }));
   },
   addBug: function (bug) {
     $.ajax({
