@@ -12,9 +12,6 @@ app.get('/api/bugs', function(req, res) {
   
   var filter = {};
 
-  console.log(req.query);
-  console.log(req.query);
-
   if (req.query.priority) {
     filter.priority = req.query.priority;
   }
