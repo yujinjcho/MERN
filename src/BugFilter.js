@@ -23,7 +23,7 @@ var BugFilter = React.createClass({
         </select>
         <br/>
 
-        <button onClick={this.submit}>Apply</button>
+        <button onClick={this.submit}>Apply Filter</button>
       </div>
 
     )

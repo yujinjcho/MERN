@@ -24,6 +24,7 @@ app.get('/api/bugs', function(req, res) {
   });
 })
 
+
 app.use(bodyParser.json());
 app.post('/api/bugs', function(req, res) {
   var newBug = req.body;
