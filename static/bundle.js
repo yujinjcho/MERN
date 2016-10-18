@@ -31028,10 +31028,19 @@ var BugFilter = React.createClass({
   displayName: 'BugFilter',
 
   render: function () {
-    return React.createElement('button', { onClick: this.submit }, 'Filter');
+    return React.createElement('div', null, React.createElement('h3', null, 'Filter'), 'Status:', React.createElement('select', { value: this.state.status, onChange: this.onChangeStatus }, React.createElement('option', { value: '' }, '(Any)'), React.createElement('option', { value: 'New' }, 'New'), React.createElement('option', { value: 'Open' }, 'Open'), React.createElement('option', { value: 'Closed' }, 'Closed')), React.createElement('br', null), 'Priority:', React.createElement('select', { value: this.state.priority, onChange: this.onChangePriority }, React.createElement('option', { value: '' }, '(Any)'), React.createElement('option', { value: 'P1' }, 'P1'), React.createElement('option', { value: 'P2' }, 'P2'), React.createElement('option', { value: 'P3' }, 'P3')), React.createElement('br', null), React.createElement('button', { onClick: this.submit }, 'Apply'));
+  },
+  getInitialState: function () {
+    return { status: "", priority: "" };
+  },
+  onChangeStatus: function (e) {
+    this.setState({ status: e.target.value });
+  },
+  onChangePriority: function (e) {
+    this.setState({ priority: e.target.value });
   },
   submit: function (e) {
-    this.props.submitHandler({ priority: "P1" });
+    this.props.submitHandler({ priority: this.state.priority, status: this.state.status });
   }
 });
 
