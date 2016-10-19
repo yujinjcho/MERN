@@ -47,19 +47,31 @@ var BugTable = React.createClass({
 
 var BugList = React.createClass({
   componentDidMount: function() {
-    this.loadData({});
+    this.loadData();
   },
   getInitialState: function(){
     return {bugs: []};
   },
-  loadData: function(filter) {
+  componentDidUpdate: function(prevProps) {
+    var oldQuery = prevProps.location.query;
+    var newQuery = this.props.location.query;
+    if (oldQuery.priority === newQuery.priority) &&
+        oldQuery.status === newQuery.status) {
+      return
+    } else {
+      this.loadData();
+    }
+  },
+  loadData: function() {
+    var query = this.props.location.query || {};
+    var filter = {priority: query.priority, status: query.status};
+
     $.ajax('/api/bugs', {data:filter}).done(function(data){
       this.setState({bugs: data});
     }.bind(this));
   },
   changeFilter: function(newFilter) {
     this.props.router.push({search: '?' + $.param(newFilter)});
-    this.loadData(newFilter);
 
   },
   render: function () {
