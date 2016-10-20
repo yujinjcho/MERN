@@ -32,6 +32,16 @@ app.get('/api/bugs/:id', function(req, res) {
   });
 });
 
+app.put('/api/bugs/:id', function(req, res){
+  var bug = req.body;
+  var old = ObjectId(req.params.id);
+  db.collection("bugs").updateOne({_id: old}, bug, function(err, result){
+    db.collection('bugs').find({_id: old}).next(function(err, doc){
+      res.send(doc);
+    });
+  });
+});
+
 app.use(bodyParser.json());
 app.post('/api/bugs', function(req, res) {
   var newBug = req.body;
