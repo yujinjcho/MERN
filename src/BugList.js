@@ -55,9 +55,9 @@ var BugList = React.createClass({
   componentDidUpdate: function(prevProps) {
     var oldQuery = prevProps.location.query;
     var newQuery = this.props.location.query;
-    if (oldQuery.priority === newQuery.priority) &&
+    if (oldQuery.priority === newQuery.priority &&
         oldQuery.status === newQuery.status) {
-      return
+      return;
     } else {
       this.loadData();
     }

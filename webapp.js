@@ -2,6 +2,8 @@ var assert = require('assert');
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+
 var url = 'mongodb://localhost:27017/bugsdb';
 var db;
 
@@ -24,6 +26,11 @@ app.get('/api/bugs', function(req, res) {
   });
 })
 
+app.get('/api/bugs/:id', function(req, res) {
+  db.collection('bugs').findOne({_id: ObjectId(req.params.id)}, function(err, bug) {
+    res.json(bug);
+  });
+});
 
 app.use(bodyParser.json());
 app.post('/api/bugs', function(req, res) {

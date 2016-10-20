@@ -36407,6 +36407,12 @@ var BugFilter = React.createClass({
     var initFilter = this.props.initFilter;
     return { status: initFilter.status, priority: initFilter.priority };
   },
+  componentWillReceiveProps: function (newProps) {
+    if (newProps.initFilter.status === this.state.status && newProps.initFilter.priority === this.state.priority) {
+      return;
+    }
+    this.setState({ status: newProps.initFilter.status, priority: newProps.initFilter.priority });
+  },
   onChangeStatus: function (e) {
     this.setState({ status: e.target.value });
   },
@@ -36456,19 +36462,30 @@ var BugList = React.createClass({
   displayName: 'BugList',
 
   componentDidMount: function () {
-    this.loadData({});
+    this.loadData();
   },
   getInitialState: function () {
     return { bugs: [] };
   },
-  loadData: function (filter) {
+  componentDidUpdate: function (prevProps) {
+    var oldQuery = prevProps.location.query;
+    var newQuery = this.props.location.query;
+    if (oldQuery.priority === newQuery.priority && oldQuery.status === newQuery.status) {
+      return;
+    } else {
+      this.loadData();
+    }
+  },
+  loadData: function () {
+    var query = this.props.location.query || {};
+    var filter = { priority: query.priority, status: query.status };
+
     $.ajax('/api/bugs', { data: filter }).done(function (data) {
       this.setState({ bugs: data });
     }.bind(this));
   },
   changeFilter: function (newFilter) {
     this.props.router.push({ search: '?' + $.param(newFilter) });
-    this.loadData(newFilter);
   },
   render: function () {
     console.log('Component rendered');
