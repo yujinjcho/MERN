@@ -36424,12 +36424,13 @@ module.exports = BugAdd;
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
+var Link = require('react-router').Link;
 
 var BugEdit = React.createClass({
   displayName: 'BugEdit',
 
   render: function () {
-    return React.createElement('div', null, 'Edit bug: ', this.props.params.id, React.createElement('br', null), React.createElement('form', { onSubmit: this.submit }, 'Priority:', React.createElement('select', { name: 'priority', value: this.state.priority, onChange: this.onChangePriority }, React.createElement('option', { value: 'P1' }, 'P1'), React.createElement('option', { value: 'P2' }, 'P2'), React.createElement('option', { value: 'P3' }, 'P3')), React.createElement('br', null), 'Status:', React.createElement('select', { value: this.state.status, onChange: this.onChangeStatus }, React.createElement('option', null, 'New'), React.createElement('option', null, 'Open'), React.createElement('option', null, 'Fixed'), React.createElement('option', null, 'Closed')), React.createElement('br', null), 'Owner: ', React.createElement('input', { type: 'text', value: this.state.owner, onChange: this.onChangeOwner }), React.createElement('br', null), 'Title: ', React.createElement('input', { type: 'text', value: this.state.title, onChange: this.onChangeTitle }), React.createElement('br', null), React.createElement('button', { type: 'submit' }, 'Submit')));
+    return React.createElement('div', null, 'Edit bug: ', this.props.params.id, React.createElement('br', null), React.createElement('form', { onSubmit: this.submit }, 'Priority:', React.createElement('select', { name: 'priority', value: this.state.priority, onChange: this.onChangePriority }, React.createElement('option', { value: 'P1' }, 'P1'), React.createElement('option', { value: 'P2' }, 'P2'), React.createElement('option', { value: 'P3' }, 'P3')), React.createElement('br', null), 'Status:', React.createElement('select', { value: this.state.status, onChange: this.onChangeStatus }, React.createElement('option', null, 'New'), React.createElement('option', null, 'Open'), React.createElement('option', null, 'Fixed'), React.createElement('option', null, 'Closed')), React.createElement('br', null), 'Owner: ', React.createElement('input', { type: 'text', value: this.state.owner, onChange: this.onChangeOwner }), React.createElement('br', null), 'Title: ', React.createElement('input', { type: 'text', value: this.state.title, onChange: this.onChangeTitle }), React.createElement('br', null), React.createElement('button', { type: 'submit' }, 'Submit'), React.createElement(Link, { to: '/bugs' }, 'Back to bug list')));
   },
   getInitialState: function () {
     return {};
@@ -36482,7 +36483,7 @@ var BugEdit = React.createClass({
 
 module.exports = BugEdit;
 
-},{"jquery":31,"react":233,"react-dom":35}],239:[function(require,module,exports){
+},{"jquery":31,"react":233,"react-dom":35,"react-router":65}],239:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -36588,6 +36589,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 var withRouter = require('react-router').withRouter;
+var Link = require('react-router').Link;
 
 var BugFilter = require('./BugFilter');
 var BugAdd = require('./BugAdd');
@@ -36596,35 +36598,7 @@ var BugRow = React.createClass({
   displayName: 'BugRow',
 
   render: function () {
-    return React.createElement(
-      'tr',
-      null,
-      React.createElement(
-        'td',
-        null,
-        this.props.bug._id
-      ),
-      React.createElement(
-        'td',
-        null,
-        this.props.bug.status
-      ),
-      React.createElement(
-        'td',
-        null,
-        this.props.bug.priority
-      ),
-      React.createElement(
-        'td',
-        null,
-        this.props.bug.owner
-      ),
-      React.createElement(
-        'td',
-        null,
-        this.props.bug.title
-      )
-    );
+    return React.createElement('tr', null, React.createElement('td', null, React.createElement(Link, { to: "/bugs/" + this.props.bug._id }, this.props.bug._id)), React.createElement('td', null, this.props.bug.status), React.createElement('td', null, this.props.bug.priority), React.createElement('td', null, this.props.bug.owner), React.createElement('td', null, this.props.bug.title));
   }
 });
 
@@ -36636,48 +36610,7 @@ var BugTable = React.createClass({
       return React.createElement(BugRow, { key: bug._id, bug: bug });
     });
 
-    return React.createElement(
-      'table',
-      null,
-      React.createElement(
-        'thead',
-        null,
-        React.createElement(
-          'tr',
-          null,
-          React.createElement(
-            'th',
-            null,
-            'Id'
-          ),
-          React.createElement(
-            'th',
-            null,
-            'Status'
-          ),
-          React.createElement(
-            'th',
-            null,
-            'Priority'
-          ),
-          React.createElement(
-            'th',
-            null,
-            'Owner'
-          ),
-          React.createElement(
-            'th',
-            null,
-            'Title'
-          )
-        )
-      ),
-      React.createElement(
-        'tbody',
-        null,
-        bugRows
-      )
-    );
+    return React.createElement('table', null, React.createElement('thead', null, React.createElement('tr', null, React.createElement('th', null, 'Id'), React.createElement('th', null, 'Status'), React.createElement('th', null, 'Priority'), React.createElement('th', null, 'Owner'), React.createElement('th', null, 'Title'))), React.createElement('tbody', null, bugRows));
   }
 });
 
@@ -36712,20 +36645,7 @@ var BugList = React.createClass({
   },
   render: function () {
     console.log('Component rendered');
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'h1',
-        null,
-        'Bug Tracker'
-      ),
-      React.createElement(BugFilter, { submitHandler: this.changeFilter, initFilter: this.props.location.query }),
-      React.createElement('hr', null),
-      React.createElement(BugTable, { bugs: this.state.bugs }),
-      React.createElement('hr', null),
-      React.createElement(BugAdd, { addBug: this.addBug })
-    );
+    return React.createElement('div', null, React.createElement('h1', null, 'Bug Tracker'), React.createElement(BugFilter, { submitHandler: this.changeFilter, initFilter: this.props.location.query }), React.createElement('hr', null), React.createElement(BugTable, { bugs: this.state.bugs }), React.createElement('hr', null), React.createElement(BugAdd, { addBug: this.addBug }));
   },
   addBug: function (bug) {
     $.ajax({
